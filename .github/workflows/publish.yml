@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*.*.*"   # Example: push a tag v1.0.0 to trigger publish
+      - "*.*.*"
 
 jobs:
   publish:
