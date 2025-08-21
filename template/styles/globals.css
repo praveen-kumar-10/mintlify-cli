@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 22 163 74;
+    --primary-light: 7 201 131;
+    --primary-dark: 21 128 61;
+    --background-light: 255 255 255;
+    --background-dark: 9 13 13;
+    --gray-50: 243 247 245;
+    --gray-100: 238 242 240;
+    --gray-200: 223 227 224;
+    --gray-300: 206 211 208;
+    --gray-400: 159 163 160;
+    --gray-500: 112 116 114;
+    --gray-600: 80 84 82;
+    --gray-700: 63 67 64;
+    --gray-800: 38 42 39;
+    --gray-900: 23 27 25;
+    --gray-950: 10 15 12;
+
+    --spacing-16-14: 1.142857142857143em;
+    --spacing-8-14: 0.571428571428571em;
+  }
+
+  .dark {
+  }
+}
+
+html {
+  overscroll-behavior-y: none;
+  height: 100%;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  overflow-y: overlay;
+  --scroll-mt: 9.5rem;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  -webkit-tap-highlight-color: transparent;
+}
