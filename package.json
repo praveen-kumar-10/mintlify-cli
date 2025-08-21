@@ -1,6 +1,6 @@
 {
   "name": "@praveen-kumar-10/mintlify-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CLI tool to generate a Next.js docs site from markdown content",
   "bin": {
     "mintlify-cli": "./bin/index.js"
