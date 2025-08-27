@@ -3,7 +3,7 @@ name: Publish Package
 on:
   push:
     tags:
-      - "v*.*.*"   # Example: push a tag v1.0.0 to trigger publish
+      - "v*.*.*" # Example: push a tag v1.0.0 to trigger publish
       - "*.*.*"
 
 jobs:
@@ -26,7 +26,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Publish
+      - name: Build package
+        run: npm run build
+
+      - name: Publish package
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
