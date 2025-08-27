@@ -20,6 +20,7 @@
     "@octokit/rest": "^22.0.0",
     "chalk": "^5.6.0",
     "commander": "^14.0.0",
+    "execa": "^9.6.0",
     "fs-extra": "^11.3.1",
     "ora": "^8.2.0",
     "simple-git": "^3.28.0"
