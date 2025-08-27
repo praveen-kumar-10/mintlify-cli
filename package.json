@@ -3,6 +3,7 @@
   "version": "2.0.4",
   "description": "CLI tool to generate a Next.js docs site from markdown content",
   "main": "src/index.js",
+  "type": "module",
   "bin": {
     "mintlify-cli": "./bin/index.js"
   },
@@ -17,15 +18,10 @@
   "license": "MIT",
   "dependencies": {
     "@octokit/rest": "^22.0.0",
-    "chalk": "^4.1.2",
-    "commander": "^12.1.0",
+    "chalk": "^5.6.0",
+    "commander": "^14.0.0",
     "fs-extra": "^11.3.1",
     "ora": "^8.2.0",
     "simple-git": "^3.28.0"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.28.3",
-    "@babel/core": "^7.28.3",
-    "@babel/preset-env": "^7.28.3"
   }
 }

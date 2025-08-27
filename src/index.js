@@ -1,12 +1,17 @@
 #!/usr/bin/env node
 
-const { Command } = require("commander");
-const chalk = require("chalk");
-const simpleGit = require("simple-git");
-const fs = require("fs-extra");
-const { execSync } = require("child_process");
-const path = require("path");
-const ora = require("ora");
+import { Command } from "commander";
+import chalk from "chalk";
+import simpleGit from "simple-git";
+import fs from "fs-extra";
+import { execSync } from "child_process";
+import path from "path";
+import ora from "ora";
+import { fileURLToPath } from "url";
+
+// For __dirname equivalent in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class MintlifyCLI {
   constructor(githubToken) {
@@ -20,31 +25,20 @@ class MintlifyCLI {
     console.log(chalk.gray(`Content: ${options.contentRepo}`));
 
     try {
-      // Step 1: Clone template repository
       const templateDir = await this.cloneTemplate(
         options.templateRepo,
         options.githubToken
       );
 
-      // Step 2: Clone content repository
       const contentDir = await this.cloneContent(
         options.contentRepo,
         options.githubToken
       );
 
-      // Step 3: Validate content
       await this.validateContent(contentDir);
-
-      // Step 4: Copy content to template
       await this.mergeContent(contentDir, templateDir);
-
-      // Step 5: Build Next.js site
       await this.buildSite(templateDir);
-
-      // Step 6: Deploy to Vercel
       await this.deployToVercel(templateDir, options.vercelToken);
-
-      // Step 7: Cleanup
       await this.cleanup([templateDir, contentDir]);
 
       console.log(chalk.green.bold("✅ Documentation deployed successfully!"));
@@ -103,7 +97,6 @@ class MintlifyCLI {
     const spinner = ora("Validating content structure...").start();
 
     try {
-      // Check for required files
       const requiredFiles = ["docs.json", "index.mdx"];
 
       for (const file of requiredFiles) {
@@ -114,7 +107,6 @@ class MintlifyCLI {
         }
       }
 
-      // Validate docs.json structure
       const docsConfigPath = path.join(contentDir, "docs.json");
       const docsConfig = await fs.readJson(docsConfigPath);
 
@@ -136,7 +128,6 @@ class MintlifyCLI {
       const contentTargetDir = path.join(templateDir, "content");
       await fs.ensureDir(contentTargetDir);
 
-      // Copy all files except .git directory
       const contentFiles = await fs.readdir(contentDir);
 
       for (const file of contentFiles) {
@@ -162,10 +153,7 @@ class MintlifyCLI {
       const originalCwd = process.cwd();
       process.chdir(templateDir);
 
-      // Install dependencies
       execSync("npm install", { stdio: "pipe" });
-
-      // Build the site
       execSync("npm run build", { stdio: "pipe" });
 
       process.chdir(originalCwd);
@@ -183,7 +171,6 @@ class MintlifyCLI {
       const originalCwd = process.cwd();
       process.chdir(templateDir);
 
-      // Deploy using Vercel CLI
       execSync(`npx vercel --prod --token ${vercelToken} --yes`, {
         stdio: "pipe",
         env: { ...process.env, VERCEL_TOKEN: vercelToken },
@@ -208,7 +195,6 @@ class MintlifyCLI {
         }
       }
 
-      // Remove temp directory if empty
       const tempDir = path.join(process.cwd(), ".temp");
       const tempExists = await fs.pathExists(tempDir);
       if (tempExists) {
@@ -225,7 +211,6 @@ class MintlifyCLI {
   }
 }
 
-// CLI Program Setup
 const program = new Command();
 
 program
@@ -267,7 +252,6 @@ program
     console.log(chalk.blue("Mintlify CLI v1.0.0"));
   });
 
-// Parse command line arguments
 program.parse();
 
-module.exports = { MintlifyCLI };
+export { MintlifyCLI };
